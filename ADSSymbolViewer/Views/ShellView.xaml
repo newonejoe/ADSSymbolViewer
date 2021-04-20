@@ -1,0 +1,21 @@
+﻿<Window x:Class="ADSSymbolViewer.Views.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ADSSymbolViewer.Views"
+                xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Background="{DynamicResource MaterialDesignPaper}"
+        xmlns:cal="http://caliburnmicro.com"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        mc:Ignorable="d"
+        Title="ADS Symbol Viewer" Height="1200" Width="1200">
+    <DockPanel>
+        <TextBox DockPanel.Dock="Bottom" Text="{Binding Info}" Margin="2" TextWrapping="Wrap" MaxHeight="200" VerticalScrollBarVisibility="Auto"></TextBox>
+        
+        <!--Container-->
+        <ContentControl x:Name="ActiveItem">
+            
+        </ContentControl>
+    </DockPanel>
+</Window>

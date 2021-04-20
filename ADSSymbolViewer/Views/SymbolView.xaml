@@ -1,0 +1,115 @@
+﻿<UserControl x:Class="ADSSymbolViewer.Views.SymbolView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ADSSymbolViewer.Views"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             mc:Ignorable="d" 
+             d:DesignHeight="1200" d:DesignWidth="1200">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <!--Section Symbol Live View-->
+        <GroupBox>
+            <GroupBox.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontSize="24" Width="400" Foreground="White">
+                        <Run>Symbol Live</Run>
+                        <Run FontSize="18">(</Run>
+                        <Run FontSize="18" Foreground="LightBlue" Text="{Binding TargetADSAddress, Mode=OneWay}"></Run>
+                        <Run FontSize="18">)</Run>
+                    </TextBlock>
+
+                    <Button x:Name="UpdateAppConfig" Content="Save Config" Width="150" Margin="2"
+                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        />
+                </StackPanel>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    
+                    <!--<Button x:Name="SaveToSQLite" Content="SaveToSQlite" Width="150" Margin="2"
+                        cal:Action.Target="[Event Click]=[UpdateAppConfig]"/>-->
+                </StackPanel>
+                <ListView Grid.Row="1" ItemsSource="{Binding Symbols}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="InstancePath" Width="300" DisplayMemberBinding="{Binding InstancePath}"/>
+                            <GridViewColumn Header="Type" Width="100" DisplayMemberBinding="{Binding Type}"/>
+                            <GridViewColumn Header="Value" Width="100" DisplayMemberBinding="{Binding Value}"/>
+                            <GridViewColumn Header="UnSubscribe" Width="150">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="UnSubscribe" Width="150" cal:Message.Attach="[Event Click]=[UnSubscribe($this)]"
+                                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                                ></Button>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </GroupBox>
+        <!--Section Symbol Query View-->
+        <GroupBox Grid.Row="2">
+            <GroupBox.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontSize="24" Width="400" Foreground="White">
+                    <Run>Symbol Info</Run>
+                    <Run> (</Run>
+                    <Run Text="{Binding SymbolInfos.Count, Mode=OneWay}"></Run>
+                    <Run>)</Run>
+                    </TextBlock>
+                    <Button x:Name="LoadSymbols" Margin="2" Content="Refresh" Width="150"
+                            Style="{StaticResource MaterialDesignRaisedDarkButton}"></Button>
+                </StackPanel>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                   
+                    <TextBox Width="200" FontSize="18" 
+                              materialDesign:HintAssist.Hint="search"
+                             VerticalContentAlignment="Center" Margin="10,2,10,2" Text="{Binding Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <ListView Grid.Row="1" ItemsSource="{Binding SymbolInfos}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="InstancePath" Width="300" DisplayMemberBinding="{Binding InstancePath}"/>
+                            <GridViewColumn Header="Type" Width="100" DisplayMemberBinding="{Binding TypeName}"/>
+                            <GridViewColumn Header="Bit&#10;Size" Width="100" DisplayMemberBinding="{Binding BitSize}"/>
+                            <GridViewColumn Header="Byte&#10;Size" Width="100" DisplayMemberBinding="{Binding ByteSize}"/>
+                            <GridViewColumn Header="Index&#10;Group" Width="100" DisplayMemberBinding="{Binding IndexGroup}"/>
+                            <GridViewColumn Header="Index&#10;Offset" Width="100" DisplayMemberBinding="{Binding IndexOffset}"/>
+                            <GridViewColumn Header="Category" Width="120" DisplayMemberBinding="{Binding Category}"/>
+                            <GridViewColumn Header="Static" Width="100" DisplayMemberBinding="{Binding IsStatic}"/>
+                            <GridViewColumn Header="Subscribe">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Subscribe" Width="120" cal:Message.Attach="[Event Click]=[Subscribe($this)]"
+                                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                                ></Button>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>
